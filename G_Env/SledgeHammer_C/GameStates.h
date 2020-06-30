@@ -1,0 +1,14 @@
+#pragma once
+#ifndef TANK_GAMESTATES_H
+#define TANK_GAMESTATES_H
+
+typedef enum GameStates_E
+{
+	GAMESTATE_MENU,
+	GAMESTATE_LOADING,
+	GAMESTATE_PLAYING,
+	GAMESTATE_PAUSED,
+	GAMESTATE_OVER,
+} GameStates;
+
+#endif // !TANK_GAMESTATES_H
