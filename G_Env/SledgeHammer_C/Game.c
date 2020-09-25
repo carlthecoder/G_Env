@@ -1,27 +1,30 @@
 #include "Game.h"
-#include <stdio.h>
 
-Game* BootGame(SDL_Renderer* renderer)
+
+Game* Game_Startup(SDL_Renderer* renderer)
 {
 	Game* game = malloc(sizeof(Game));
-	game->renderer = renderer;
-	game->gameState = GAMESTATE_MENU;
-	game->menu = CreateMenu(renderer);
+	if (game)
+	{
+		game->renderer = renderer;
+		game->gameState = GAMESTATE_DASHBOARD;
+		game->dashboard = Dashboard_Create(renderer);
+	}
 
 	return game;
 }
 
-void LoadGameContent(Game* game)
+void Game_LoadContent(Game* game)
 {
 	
 }
 
-void UpdateGame(Game* game)
+void Game_Update(Game* game)
 {
-	if (game->gameState == GAMESTATE_MENU)
+	if (game->gameState == GAMESTATE_DASHBOARD)
 	{
 		// Handle menu 
-		UpdateMenu(game->menu);
+		Dashboard_Update(game->dashboard);
 	}
 	else if (game->gameState == GAMESTATE_LOADING)
 	{
@@ -35,18 +38,18 @@ void UpdateGame(Game* game)
 	{
 		// hold updates
 	}
-	else if (game->gameState == GAMESTATE_OVER)
+	else if (game->gameState == GAMESTATE_GAMEOVER)
 	{
 		// Draw result screen
 	}
 }
 
-void DrawGame(Game* game)
+void Game_Draw(Game* game)
 {
-	if (game->gameState == GAMESTATE_MENU)
+	if (game->gameState == GAMESTATE_DASHBOARD)
 	{
 		// Draw menu
-		DrawMenu(game->menu, game->renderer);
+		Dashboard_Draw(game->dashboard, game->renderer);
 	}
 	else if (game->gameState == GAMESTATE_LOADING)
 	{
@@ -60,22 +63,22 @@ void DrawGame(Game* game)
 	{
 		// hold drawing // show overlay
 	}
-	else if (game->gameState == GAMESTATE_OVER)
+	else if (game->gameState == GAMESTATE_GAMEOVER)
 	{
 		// Draw result screen
 	}
 }
 
-void SetGameState(Game* game, GameStates newState)
+void Game_SetState(Game* game, GameStates newState)
 {
 	game->gameState = newState;
 }
 
-void DestroyGame(Game* game)
+void Game_Destroy(Game* game)
 {
 	// Release and Destroy all game objects here:
 
-	DestroyMenu(game->menu);
+	Dashboard_Destroy(game->dashboard);
 
 	// Release the game object itself:
 	if (game)

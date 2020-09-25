@@ -158,9 +158,8 @@
     <ClCompile Include="Engine.c" />
     <ClCompile Include="Game.c" />
     <ClCompile Include="Helpers.c" />
-    <ClCompile Include="sledge_C_main.c" />
-    <ClCompile Include="Menu.c" />
-    <ClCompile Include="Player.c" />
+    <ClCompile Include="Sledge_Main.c" />
+    <ClCompile Include="Dashboard.c" />
     <ClCompile Include="RenderSystem.c" />
   </ItemGroup>
   <ItemGroup>
@@ -168,10 +167,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStates.h" />
     <ClInclude Include="Helpers.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Dashboard.h" />
     <ClInclude Include="RenderSystem.h" />
-    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

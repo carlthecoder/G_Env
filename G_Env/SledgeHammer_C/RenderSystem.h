@@ -2,14 +2,35 @@
 #ifndef TANK_RENDERSYS_H
 #define TANK_RENDERSYS_H
 
-#include "Sprite.h"
 #include "Helpers.h"
 #include <SDL.h>
 #include <SDL_image.h>
+#include "Vector2D.h"
+#include <SDL.h>
 
-SDL_Texture* LoadTexture(char* filePath, SDL_Renderer* renderer);
+typedef struct Sprite_t
+{
+	SDL_Texture* texture;
+	SDL_Rect src;
+	SDL_Rect clip;
+	SDL_Point anchor;
+	Vector2D position;
+	Vector2D sheetSize;
+	Vector2D textureSize;
+	Vector2D currentFrame;
+	double angle;
+	double scale;
+} Sprite;
 
-void InitializeSprite(Sprite* sprite,
+typedef struct RenderSystem_t
+{
+	SDL_Renderer* renderer;
+	Sprite* SpriteBatch;
+} RenderSystem;
+
+SDL_Texture* RenderSystem_LoadTexture(char* filePath, SDL_Renderer* renderer);
+
+void RenderSystem_InitializeSprite(Sprite* sprite,
 	char* filePath,
 	Vector2D position,
 	Vector2D sheetSize,
@@ -20,7 +41,7 @@ void InitializeSprite(Sprite* sprite,
 	double scale,
 	SDL_Renderer*);
 
-void DrawSprite(Sprite* sprite, SDL_Renderer*);
-void DestroySprite(Sprite* sprite);
+void RenderSystem_DrawSprite(Sprite* sprite, SDL_Renderer*);
+void RenderSystem_DestroySprite(Sprite* sprite);
 
 #endif // !TANK_RENDERSYS_H

@@ -1,6 +1,6 @@
 #include "Helpers.h"
 
-void SdlRectInitialize(SDL_Rect* rect, Uint32 x, Uint32 y, Uint32 width, Uint32 height)
+void Helpers_SDLRectInitialize(SDL_Rect* rect, Uint32 x, Uint32 y, Uint32 width, Uint32 height)
 {
 	rect->x = x;
 	rect->y = y;

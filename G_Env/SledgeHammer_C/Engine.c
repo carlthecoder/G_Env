@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-static bool InitializeSDL(void)
+static bool Engine_InitializeSDL(void)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
@@ -9,27 +9,25 @@ static bool InitializeSDL(void)
 	}
 
 	IMG_Init(IMG_INIT_PNG);
-	printf("Engine booted.\n");
+	printf("SDL Initialized.\n");
 	return true;
 }
 
-static SDL_Window* CreateWindow(char* windowTitle, uint16_t width, uint16_t height, bool fullscreen)
+static SDL_Window* Engine_CreateSDLWindow(char* windowTitle, uint16_t width, uint16_t height, bool fullscreen)
 {
 	int flags = 0;
 	if (fullscreen)
 	{
 		flags = SDL_WINDOW_FULLSCREEN;
+
+		// todo: Reset the height and with the the fullscreen resolution
+		// might need a win32 call here to find the screen resolutions
 	}
 
 	return SDL_CreateWindow(windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
 }
 
-static SDL_Renderer* CreateRenderer(SDL_Window* window)
-{
-	return SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-}
-
-static bool HandleEvents(void)
+static bool Engine_HandleEvents(void)
 {
 	SDL_Event event;
 
@@ -45,49 +43,54 @@ static bool HandleEvents(void)
 	return true;
 }
 
-static void UpdateEngine(Engine* engine)
+static void Engine_Update(Engine* engine)
 {
-	UpdateGame(engine->game);
+	Game_Update(engine->game);
 }
 
-static void DrawEngine(Engine* engine)
+static void Engine_Draw(Engine* engine)
 {
 	SDL_RenderClear(engine->renderer);
 
-	DrawGame(engine->game);
+	Game_Draw(engine->game);
 
 	SDL_RenderPresent(engine->renderer);
 }
 
-Engine* BootEngine(char* windowTitle, uint16_t width, uint16_t height, bool fullscreen)
+Engine* Engine_Ignite(char* windowTitle, uint16_t width, uint16_t height, bool fullscreen)
 {
-	Engine* engine = malloc(sizeof(Engine));
-
-	if (!InitializeSDL())
+	if (!Engine_InitializeSDL())
 		return NULL;
 
-	engine->window = CreateWindow("Tank", width, height, false);
-	if (!engine->window)
-		printf("Couldn't create window\n");
+	Engine* engine = malloc(sizeof(Engine));
 
-	engine->renderer = CreateRenderer(engine->window);
-	if (!engine->renderer)
-		printf("Couldn't create renderer\n");
+	if (engine)
+	{
+		engine->window = Engine_CreateSDLWindow(windowTitle, width, height, false);
 
-	// Setting the clear screen color;
-	SDL_SetRenderDrawColor(engine->renderer, 30, 50, 50, 255);
+		if (engine->window)
+		{
+			engine->renderer = SDL_CreateRenderer(engine->window, -1, SDL_RENDERER_ACCELERATED);
+
+			if (engine->renderer)
+				SDL_SetRenderDrawColor(engine->renderer, 30, 50, 50, 255);
+			else
+				printf("Couldn't create renderer\n");
+		}
+		else
+			printf("Couldn't create window\n");
+	}	
 
 	return engine;
 }
 
-void InitializeGameSystem(Engine* engine)
+void Engine_InitializeGameSystem(Engine* engine)
 {
-	// Create an instance of game struct and store it in  the engine
-	engine->game = BootGame(engine->renderer);
-	LoadGameContent(engine->game);
+	engine->game = Game_Startup(engine->renderer);
+	Game_LoadContent(engine->game);
 }
 
-void RunEngine(Engine* engine)
+void Engine_Run(Engine* engine)
 {
 	// Initializing framerate to 60 FPS
 	const float frameTime = 1000 / 60;
@@ -101,9 +104,9 @@ void RunEngine(Engine* engine)
 	{
 		last = now;
 		{
-			running = HandleEvents();
-			UpdateEngine(engine);
-			DrawEngine(engine);
+			running = Engine_HandleEvents();
+			Engine_Update(engine);
+			Engine_Draw(engine);
 		}
 		now = SDL_GetPerformanceCounter();
 
@@ -114,20 +117,15 @@ void RunEngine(Engine* engine)
 	}
 }
 
-void DestroyEngine(Engine* engine)
+void Engine_Destroy(Engine* engine)
 {
 	// Release and destroy engine objects
-	SDL_DestroyWindow(engine->window);
+	Game_Destroy(engine->game);
 	SDL_DestroyRenderer(engine->renderer);	
-	DestroyGame(engine->game);
+	SDL_DestroyWindow(engine->window);
 
-	// Release the engine object itself
-	if (engine)
-	{
-		free(engine);
-		engine = NULL;
-		printf("Engine released, set to NULL. ");
-	}
-
+	// Release the engine object itself	
+	free(engine);
+	engine = NULL;
 	printf("Engine destroyed.\n");
 }

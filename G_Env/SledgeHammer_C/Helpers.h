@@ -5,6 +5,6 @@
 #include <SDL.h>
 #include <stdint.h>
 
-void SdlRectInitialize(SDL_Rect* rect, Uint32 x, Uint32 y, Uint32 width, Uint32 height);
+void Helpers_SDLRectInitialize(SDL_Rect* rect, Uint32 x, Uint32 y, Uint32 width, Uint32 height);
 
 #endif // !TANK_HELPERS_H

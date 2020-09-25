@@ -1,6 +1,6 @@
-#include "Menu.h"
+#include "Dashboard.h"
 
-static void InitializeMenu(Menu* menu, SDL_Renderer* renderer)
+static void Dashboard_Initialize(Dashboard* menu, SDL_Renderer* renderer)
 {
 	Vector2D position = { 0 , 0 };
 	Vector2D sheetSize = { 0, 0 };
@@ -12,7 +12,7 @@ static void InitializeMenu(Menu* menu, SDL_Renderer* renderer)
 
 	menu->background = malloc(sizeof(Sprite));
 
-	InitializeSprite(
+	RenderSystem_InitializeSprite(
 		menu->background,
 		"Assets/menubackground.png",
 		position,
@@ -25,29 +25,29 @@ static void InitializeMenu(Menu* menu, SDL_Renderer* renderer)
 		renderer);
 }
 
-Menu* CreateMenu(SDL_Renderer* renderer)
+Dashboard* Dashboard_Create(SDL_Renderer* renderer)
 {
-	Menu* menu = malloc(sizeof(Menu));
+	Dashboard* dashboard = malloc(sizeof(Dashboard));
 
-	InitializeMenu(menu, renderer);
-	return menu;
+	Dashboard_Initialize(dashboard, renderer);
+	return dashboard;
 }
 
-void UpdateMenu(Menu* menu)
+void Dashboard_Update(Dashboard* menu)
 {
 
 }
 
-void DrawMenu(Menu* menu, SDL_Renderer* renderer)
+void Dashboard_Draw(Dashboard* menu, SDL_Renderer* renderer)
 {
-	DrawSprite(menu->background, renderer);
+	RenderSystem_DrawSprite(menu->background, renderer);
 }
 
-void DestroyMenu(Menu* menu)
+void Dashboard_Destroy(Dashboard* menu)
 {
 	if (menu)
 	{
-		DestroySprite(menu->background);
+		RenderSystem_DestroySprite(menu->background);
 		//DestroySprite(menu->playMenu);
 		//DestroySprite(menu->optionsMenu);
 		//DestroySprite(menu->exitMenu);
