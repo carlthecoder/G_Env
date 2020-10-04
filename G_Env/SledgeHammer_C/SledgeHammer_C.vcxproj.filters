@@ -1,58 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{2758f3b3-b5a2-4d56-b976-8b6778103c9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{fc6eae34-f178-4ccd-8b7a-8a2949778862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Types">
+      <UniqueIdentifier>{bd94b495-2d99-4bb0-8642-74a286a0accd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{2a0877bf-fcaf-4491-b459-ea9c9426e0e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="Sledge_Main.c" />
     <ClCompile Include="Helpers.c">
-      <Filter>Source Files</Filter>
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.c">
+      <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="RenderSystem.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sledge_Main.c" />
-    <ClCompile Include="Dashboard.c">
-      <Filter>Source Files</Filter>
+      <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.c">
-      <Filter>Source Files</Filter>
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Dashboard.c">
+      <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers.h">
-      <Filter>Header Files</Filter>
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dashboard.h">
-      <Filter>Header Files</Filter>
+      <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Dashboard.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStates.h">
+      <Filter>Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
