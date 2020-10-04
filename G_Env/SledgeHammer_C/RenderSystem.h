@@ -25,7 +25,7 @@ typedef struct Sprite_t
 typedef struct RenderSystem_t
 {
 	SDL_Renderer* renderer;
-	Sprite* SpriteBatch;
+	Sprite* spriteBatch;
 } RenderSystem;
 
 SDL_Texture* RenderSystem_LoadTexture(char* filePath, SDL_Renderer* renderer);

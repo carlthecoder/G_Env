@@ -45,7 +45,7 @@ static bool Engine_HandleEvents(void)
 
 static void Engine_Update(Engine* engine)
 {
-	Game_Update(engine->game);
+	Game_Update(engine->game, &engine->running);
 }
 
 static void Engine_Draw(Engine* engine)
@@ -99,12 +99,12 @@ void Engine_Run(Engine* engine)
 	Uint64 now = SDL_GetPerformanceCounter();
 
 	// Game loop
-	bool running = true;
-	while (running)
+	engine->running = 1;
+	while (engine->running)
 	{
 		last = now;
 		{
-			running = Engine_HandleEvents();
+			engine->running = Engine_HandleEvents();
 			Engine_Update(engine);
 			Engine_Draw(engine);
 		}

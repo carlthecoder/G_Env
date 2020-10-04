@@ -2,7 +2,7 @@
 #ifndef TANK_ENGINE_H
 #define TANK_ENGINE_H
 
-#include "Game.h"
+#include "GameManager.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdbool.h>
@@ -13,7 +13,8 @@ typedef struct Engine_t
 {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	Game* game;
+	GameManager* game;
+	int running;
 } Engine;
 
 /// <summary>
